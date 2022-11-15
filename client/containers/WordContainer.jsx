@@ -3,6 +3,13 @@ import { connect } from 'react-redux';
 import DeckContainer from '/DeckContainer.jsx';
 import Card from './components/Card.jsx'
 
+const mapStateToProps = state => ({
+  card: state.cards.currentCard,
+  isLogged : state.cards.isLogged,
+  front: state.cards.front,
+  cardsInDeck : state.cards.cardsInDeck
+})
+
 
 class WordContainer extends Component {
   constructor(props) {
@@ -12,10 +19,17 @@ class WordContainer extends Component {
   render() {
     return(
       <div className="container"> 
-        <CardContainer />
+        <Card 
+          card = {this.props.card}
+          isLogged = {this.props.isLogged}
+          front = {this.props.front}
+        />
+        <button id='button' name='viewDeck' onClick={ }>View Deck</button>
+        <span id='totalCardsInDeck'>{this.props.cardsInDeck}</span>
       </div>
     );
   }
 };
 
-export default WordContainer;
+
+export default connect(mapStateToProps, null)(WordContainer);

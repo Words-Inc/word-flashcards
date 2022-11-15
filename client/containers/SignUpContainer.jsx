@@ -3,29 +3,44 @@ import { connect } from 'react-redux';
 import Card from './components/Card.jsx'
 import * as actions from './actions/actions.js'
 
+
 const mapDispatchToProps = dispatch => ({
-  addUser : (username) => dispatch(actions.addUserActionCreator(username))
+  createUser : (user) => dispatch(actions.createUserActionCreator(user)),
+  loginUser : (user) => dispatch(actions.loginUserActionCreator(user))
 })
 
-class SignUpContainer = props => {
+const handleClick = (e) => {
+  const buttonClicked = e.target.id;
+  const username = document.querySelector('username');
+  const password = document.querySelector('password');
+  const user = { username: username.value, password: password.value};
+  buttonClicked === 'signUp' ? props.createUser(user) : props.loginUser(user);
+  username.value = '';
+  password.value = '';
+};
 
-  const handleClick = () => {
-    const input = document.querySelector('input');
-    props.setUsername(input.value);
-    props.setPassword(input.value);
-    input.value = '';
-  };
+class SignUpContainer extends Component {
 
-  return(
-    <div className="signUp">
-      <h2>Sign Up</h2>
+  constructor(props) {
+    super(props);
+  }
+
+  render(){
+    return(
       <div>
-        <input id="input" type="text" name="username" placeholder="username"></input>
-        <input id="input" type="text" name="password" placeholder="password"></input>
-        <button id ="button" onClick={handleClick} >Sign Up</button>
+        <Card />
+        <div className='container'>
+          <h2>Login or Sign Up</h2>
+          <div>
+            <input id="username" type="text" name="username" placeholder="username"></input>
+            <input id="password" type="text" name="password" placeholder="password"></input>
+            <button id ="signUp" onClick={() => handleClick(e)} >Sign Up</button>
+            <button id ="login" onClick={() => handleClick(e)} >Login</button>
+          </div>
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 export default connect(null, mapDispatchToProps)(SignUpContainer);

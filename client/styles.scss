@@ -1,0 +1,21 @@
+$primary:black;
+$secondary: lighten($primary, 20%);
+$tertiary: lighten($secondary, 60%);
+$fourth: lighten($tertiary, 10%);
+$blue: #3673E8;
+$lighter-blue: lighten($blue, 30%);
+$even-lighter: lighten($lighter-blue, 10%);
+
+html {
+  font-size: 1.5vw;
+}
+
+body {
+  color: $blue;
+  font-family: Oswald;
+  background-color: $even-lighter;
+}
+
+button {
+  color:#3f94f4
+}

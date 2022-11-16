@@ -1,13 +1,16 @@
-import React from 'react';
-import LoginContainer from './containers/LoginContainer.jsx';
+import React, { Component } from 'react';
+import SignUpContainer from './containers/SignUpContainer.jsx';
+
 
 class App extends Component {
-
+  constructor(props) {
+    super(props);
+  }
 
   render() {
     return(
       <div>
-        <LoginContainer />
+        <SignUpContainer />
       </div>
     );
   }

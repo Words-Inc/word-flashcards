@@ -1,31 +1,79 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Card from './components/Card.jsx'
-import * as actions from './actions/actions.js'
+import Card from '../components/Card.jsx'
+import * as actions from '../actions/actions.js'
 
-const mapDispatchToProps = dispatch => ({
-  addUser : (username) => dispatch(actions.addUserActionCreator(username))
+const mapStateToProps = state => ({
+  card: state.cards.currentCard,
+  isLogged : state.cards.isLogged,
+  front: state.cards.front,
+  cardsInDeck : state.cards.cardsInDeck
 })
 
-class SignUpContainer = props => {
+const mapDispatchToProps = dispatch => ({
+  createUser : (user) => dispatch(actions.createUserActionCreator(user)),
+  loginUser : (user) => dispatch(actions.loginUserActionCreator(user))
+})
 
-  const handleClick = () => {
-    const input = document.querySelector('input');
-    props.setUsername(input.value);
-    props.setPassword(input.value);
-    input.value = '';
-  };
+// const handleClick = (e) => {
+//   e.preventDefault();
+//   //console.log(e.target.id);
+//   const buttonClicked = e.target.id;
+//   const username = document.querySelector('#username');
+//   //console.log(username.value);
+//   const password = document.querySelector('#password');
+//   const user = { username: username.value, password: password.value};
+//   buttonClicked === 'signUp' ? props.createUser(user) : props.loginUser(user);
+//   username.value = '';
+//   password.value = '';
+// };
 
-  return(
-    <div className="signUp">
-      <h2>Sign Up</h2>
+class SignUpContainer extends Component {
+
+  constructor(props) {
+    super(props);
+  }
+  
+  
+
+  render(){
+    const {createUser, loginUser, card, isLogged, front} = this.props;
+    function handleClick(e){
+      console.log(isLogged);
+      // const {createUser, loginUser} = this.props;
+      
+      e.preventDefault();
+      //console.log(e.target.id);
+      const buttonClicked = e.target.id;
+      const username = document.querySelector('#username');
+      //console.log(username.value);
+      const password = document.querySelector('#password');
+      const user = { username: username.value, password: password.value};
+      console.log(user);
+      buttonClicked === 'signUp' ? createUser(user) : loginUser(user);
+      username.value = '';
+      password.value = '';
+    }
+
+    return(
       <div>
-        <input id="input" type="text" name="username" placeholder="username"></input>
-        <input id="input" type="text" name="password" placeholder="password"></input>
-        <button id ="button" onClick={handleClick} >Sign Up</button>
+        <Card 
+          card = {this.props.card}
+          isLogged = {this.props.isLogged}
+          front = {this.props.front}
+        />
+        <div className='container'>
+          <h2>Login or Sign Up</h2>
+          <div>
+            <input id="username" type="text" name="username" placeholder="username"></input>
+            <input id="password" type="password" name="password" placeholder="password"></input>
+            <button id ="signUp" onClick={handleClick} >Sign Up</button>
+            <button id ="login" onClick={handleClick} >Login</button>
+          </div>
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
-export default connect(null, mapDispatchToProps)(SignUpContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpContainer);

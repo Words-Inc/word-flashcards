@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import DeckContainer from '/DeckContainer.jsx';
-import Card from './components/Card.jsx'
+
+import Card from '../components/Card.jsx'
 
 const mapStateToProps = state => ({
   card: state.cards.currentCard,
@@ -31,7 +31,8 @@ class WordContainer extends Component {
 
   render() {
     return(
-      <div className="container"> 
+      <div className="word-container"> 
+        <h1>Word container</h1>
         <Card 
           card = {this.props.card}
           isLogged = {this.props.isLogged}

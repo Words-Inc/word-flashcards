@@ -25,45 +25,27 @@ const cardsReducer = (state = initialState, action) => {
   const newState = Object.assign({}, state)
 
   switch (action.type) {
-    case types.CREATE_USER:{
-      console.log('hello from inside the create user reducer');
-      console.log(action.payload);
-      fetch('/api/signup', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(action.payload)
-      })
-        .then(res => res.json())
-        .then(res => {
-          if(res.status === 201){
-            return Object.assign({}, state, {isLogged: true})
-          }else return;
-        })
-        .catch(err => {
-          console.log(err);
-          throw new Error(err);
-        })
-          
-        
-      return newState;
+    case types.CREATE_USER:{  
+      return {
+        ...newState,
+        isLogged: true
+      }
     }
     
     case types.LOGIN_USER:{
       console.log('hello from inside the login user reducer');
-      fetch('/api/login', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(action.payload)
-      })
-        .then(res => res.json()) 
-        .then(res => {
-          return state;
-        })
-        .catch(err => {
-          console.log(err);
-          throw new Error(err);
-        })
+      console.log(action.payload)
+      if(action.payload.state){
+        return{
+          ...action.payload.state,
+          isLogged: true
+        }
       }
+      return {
+        ...newState, 
+        isLogged: true
+      }
+    }
     case types.ADD_CARD:{
       return state;
     }

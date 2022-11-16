@@ -1,11 +1,6 @@
 import * as types from '../constants/actionTypes.js';
 import { CREATE_USER, LOGIN, ADD_CARD, DELETE_CARD, FLIP_CARD, PREV_CARD, NEXT_CARD } from '../constants/actionTypes.js';
-// import { LOGIN } from '../constants/actionTypes.js';
-// import { ADD_CARD } from '../constants/actionTypes.js';
-// import { DELETE_CARD } from '../constants/actionTypes.js';
-// import { FLIP_CARD } from '../constants/actionTypes.js';
-// import { PREV_CARD } from '../constants/actionTypes.js';
-// import { NEXT_CARD } from '../constants/actionTypes.js';
+
 
 export const createUserActionCreator = user => ({
   type: types.CREATE_USER,

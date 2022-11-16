@@ -38,7 +38,7 @@ class SignUpContainer extends Component {
 
   render(){
     const {createUser, loginUser, card, isLogged, front} = this.props;
-    function handleClick(e){
+    function handleClick(e) {
       console.log(isLogged);
       // const {createUser, loginUser} = this.props;
       
@@ -67,8 +67,8 @@ class SignUpContainer extends Component {
           <div>
             <input id="username" type="text" name="username" placeholder="username"></input>
             <input id="password" type="password" name="password" placeholder="password"></input>
-            <button id ="signUp" onClick={handleClick} >Sign Up</button>
-            <button id ="login" onClick={handleClick} >Login</button>
+            <button id ="signUp" onClick={handleClick}>Sign Up</button>
+            <button id ="login" onClick={handleClick}>Login</button>
           </div>
         </div>
       </div>

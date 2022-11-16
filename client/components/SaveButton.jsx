@@ -4,21 +4,23 @@ import { connect } from 'react-redux';
 
 const mapDispatchToProps = (dispatch) => ({
     saveToDeck : (card) => dispatch(actions.addCardActionCreator(card)),
+    deleteCard : (card) => dispatch(actions.deleteCardActionCreator(card))
 })
 
 
 const SaveButton = (props) => {
-    const {card} = props;
+    const {card, deleteCard, saveToDeck} = props;
 
-    const handleClick() => {
-        props.saveToDeck(card);
+    const handleClick = () => {
+        if(card.id) deleteCard(card); 
+        if(!card.id) saveToDeck(card);
     }
+    
     return (
-        <>
-            <span>{}</span>
-            <button class = "saveButton">Save to Deck</button>
-        </>
+        <div>
+            <span class = "saveButton" onClick = {handleClick}>{card.id && {'\u2605': any}}{!card.id && {'\u2606': any}}</span>
+        </div>
     )
 }
 
-export default SaveButton;
+export default connect(null, mapDispatchToProps)(SaveButton);

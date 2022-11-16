@@ -1,13 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import BackOfCard from './BackOfCard.jsx';
+import FrontOfCard from './FrontOfCard.jsx';
 
 
 const Card = props => {
   const {card, isLogged, front} = props;
     
   return (
-    <div class="">
+    <div className="">
       {front && 
       <FrontOfCard 
         word ={card.word}
@@ -22,4 +23,4 @@ const Card = props => {
   )
 }
 
-export default FrontOfCard;
+export default Card;

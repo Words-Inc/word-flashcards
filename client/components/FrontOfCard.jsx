@@ -14,7 +14,7 @@ const FrontOfCard = props => {
     }
 
     return (
-        <div class="card" onClick={handleClick}>
+        <div className="card" onClick={handleClick}>
             <h1>{word}</h1>
             {isLogged && <SaveButton card = {card}/>}
         </div>

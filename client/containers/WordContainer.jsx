@@ -10,6 +10,19 @@ const mapStateToProps = state => ({
   cardsInDeck : state.cards.cardsInDeck
 })
 
+const mapDispatchToProps = dispatch => ({
+  nextCard : () => dispatch(actions.nextCardActionCreator()),
+  prevCard : () => dispatch(actions.prevCardActionCreator())
+})
+
+
+const handleClick = (e) => {
+  const buttonClicked = e.target.id;
+  const prevCard = document.querySelector('prevCard');
+  const nextCard = document.querySelector('nextCard');
+  buttonClicked === 'prevCard' ? props.prevCard() : props.nextCard();
+};
+
 
 class WordContainer extends Component {
   constructor(props) {
@@ -24,7 +37,8 @@ class WordContainer extends Component {
           isLogged = {this.props.isLogged}
           front = {this.props.front}
         />
-        <button id='button' name='viewDeck' onClick={ }>View Deck</button>
+        <button id='prevCard' name='prevCard' onClick={() => handleClick(e)}>Previous</button>
+        <button id='nextCard' name='nextCard' onClick={() => handleClick(e)}>Next</button>
         <span id='totalCardsInDeck'>{this.props.cardsInDeck}</span>
       </div>
     );
@@ -32,4 +46,4 @@ class WordContainer extends Component {
 };
 
 
-export default connect(mapStateToProps, null)(WordContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(WordContainer);

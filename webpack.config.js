@@ -3,7 +3,7 @@ const path = require('path');
 const environment = process.env.NODE_ENV;
 
 module.exports = {
-	mode: environment,
+	mode: 'development',
 	entry: {
 		src: './client/index.js'
 	},

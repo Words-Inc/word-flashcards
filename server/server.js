@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+
 const apiRouter = require('./routes/api.js');
 
 app.use(express.json());
@@ -20,5 +21,6 @@ app.use((err, req, res, next) => {
 app.use("*", (req, res) => res.status(404).send('Oh no!!'));
 
 app.listen(3000, () => { console.log(`Listening on port 3000...`); });
+
 
 module.exports = app;

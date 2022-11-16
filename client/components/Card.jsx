@@ -8,10 +8,10 @@ const Card = props => {
   const {card, isLogged, front} = props;
     
   return (
-    <div className="">
+    <div className="card-component">
       {front && 
       <FrontOfCard 
-        word ={card.word}
+        card ={card}
         isLogged = {isLogged}
       />}
       {!front && 

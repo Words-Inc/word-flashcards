@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import Card from '../components/Card.jsx'
 
 const mapStateToProps = state => ({
-  card: state.cards.currentCard,
-  isLogged : state.cards.isLogged,
-  front: state.cards.front,
-  cardsInDeck : state.cards.cardsInDeck
+  card: state.currentCard,
+  isLogged : state.isLogged,
+  front: state.front,
+  cardsInDeck : state.cardsInDeck
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -32,14 +32,14 @@ class WordContainer extends Component {
   render() {
     return(
       <div className="word-container"> 
-        <h1>Word container</h1>
+        <h1 className='word-title'>Word container</h1>
         <Card 
           card = {this.props.card}
           isLogged = {this.props.isLogged}
           front = {this.props.front}
         />
-        <button id='prevCard' name='prevCard' onClick={() => handleClick(e)}>Previous</button>
-        <button id='nextCard' name='nextCard' onClick={() => handleClick(e)}>Next</button>
+        <button className='previous-button' id='prevCard' name='prevCard' onClick={() => handleClick(e)}>Previous</button>
+        <button className='next-button' id='nextCard' name='nextCard' onClick={() => handleClick(e)}>Next</button>
         <span id='totalCardsInDeck'>{this.props.cardsInDeck}</span>
       </div>
     );

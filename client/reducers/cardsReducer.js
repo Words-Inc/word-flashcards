@@ -22,12 +22,13 @@ const initialState = {
 }
 
 const cardsReducer = (state = initialState, action) => {
-  const newState = Object.assign({}, state)
+  // const newState = Object.assign({}, state)
 
   switch (action.type) {
+
     case types.CREATE_USER:{  
       return {
-        ...newState,
+        ...state,
         isLogged: true
       }
     }
@@ -42,25 +43,31 @@ const cardsReducer = (state = initialState, action) => {
         }
       }
       return {
-        ...newState, 
+        ...state, 
         isLogged: true
       }
     }
-    case types.ADD_CARD:{
-      return state;
-    }
-    case types.DELETE_CARD:{
-      return state;
-    }
-    case types.FLIP_CARD:{
-      return state;
-    }
-    case types.PREV_CARD:{
-      return state;
-    }
-    case types.NEXT_CARD:{
-      return state;
-    }
+
+    // case types.ADD_CARD:{
+    //   return state;
+    // }
+
+    // case types.DELETE_CARD:{
+    //   return state;
+    // }
+
+    // case types.FLIP_CARD:{
+    //   return state;
+    // }
+
+    // case types.PREV_CARD:{
+    //   return state;
+    // }
+
+    // case types.NEXT_CARD:{
+    //   return state;
+    // }
+
     default:{
       return state;
     }

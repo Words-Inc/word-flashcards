@@ -7,7 +7,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const FrontOfCard = props => {
-  const { word, isLogged, front } = props;
+  const { card, isLogged, front } = props;
 
   const handleClick = () => {
     props.flipCard(!props.front)
@@ -15,7 +15,7 @@ const FrontOfCard = props => {
 
   return (
     <div className="card" onClick={handleClick}>
-      <h1>{word}</h1>
+      <h1>{card.word}</h1>
       {isLogged && <SaveButton card = {card}/>}
     </div>
   )

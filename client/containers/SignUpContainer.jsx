@@ -50,9 +50,27 @@ class SignUpContainer extends Component {
       const password = document.querySelector('#password');
       const user = { username: username.value, password: password.value};
       console.log(user);
-      buttonClicked === 'signUp' ? createUser(user) : loginUser(user);
+      //buttonClicked === 'signUp' ? createUser(user) : loginUser(user);
       username.value = '';
       password.value = '';
+      fetch(`/api/${buttonClicked}`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(user)
+      })
+        .then(res => res.json()) 
+        .then(res => {
+          if(buttonClicked === 'signup'){
+            createUser()
+          }
+          else if(buttonClicked === 'login'){
+            loginUser(res)
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          throw new Error(err);
+        })
     }
 
     return(
@@ -62,13 +80,15 @@ class SignUpContainer extends Component {
           isLogged = {this.props.isLogged}
           front = {this.props.front}
         />
-        <div className='container'>
+        <div className='signup-container'>
           <h2>Login or Sign Up</h2>
           <div>
             <input id="username" type="text" name="username" placeholder="username"></input>
             <input id="password" type="password" name="password" placeholder="password"></input>
-            <button id ="signUp" onClick={handleClick}>Sign Up</button>
-            <button id ="login" onClick={handleClick}>Login</button>
+
+            <button id ="signup" onClick={handleClick} >Sign Up</button>
+            <button id ="login" onClick={handleClick} >Login</button>
+
           </div>
         </div>
       </div>

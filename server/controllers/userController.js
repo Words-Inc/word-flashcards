@@ -14,7 +14,7 @@ userController.signup = (req, res, next) => {
 userController.login = (req, res, next) => {
     console.log('login');
     const params = [req.body.username, req.body.password];
-    const loginQuery = 'SELECT cards FROM users WHERE username = $1 AND password = $2';
+    const loginQuery = 'SELECT state FROM users WHERE username = $1 AND password = $2';
     db.query(loginQuery, params)
         .then((data) => {
             console.log("here's state:", data.rows[0]);
@@ -26,7 +26,7 @@ userController.login = (req, res, next) => {
 userController.update = (req, res, next) => {
     console.log('update');
     const params = [req.body.username, req.body.cards];
-    const postQuery = 'UPDATE users SET cards = $2 WHERE username = $1';
+    const postQuery = 'UPDATE users SET state = $2 WHERE username = $1';
     db.query(postQuery, params)
         .then(() => {return next()})
         .catch((err) => {return next(err)})

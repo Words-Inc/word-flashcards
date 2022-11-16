@@ -8,7 +8,7 @@ const initialState = {
     definition: "",
     sentence: ""    
   },
-  deck: {},
+  deck: [],
   currentCard: { 
     id: null, 
     word: "",
@@ -25,13 +25,26 @@ const cardsReducer = (state = initialState, action) => {
   const newState = Object.assign({}, state)
 
   switch (action.type) {
-    case types.CREATE_USER:{
-      console.log('hello from inside the create user reducer');
-      return newState;
+    case types.CREATE_USER:{  
+      return {
+        ...newState,
+        isLogged: true
+      }
     }
+    
     case types.LOGIN_USER:{
       console.log('hello from inside the login user reducer');
-      return state;
+      console.log(action.payload)
+      if(action.payload.state){
+        return{
+          ...action.payload.state,
+          isLogged: true
+        }
+      }
+      return {
+        ...newState, 
+        isLogged: true
+      }
     }
     case types.ADD_CARD:{
       return state;

@@ -8,7 +8,7 @@ const initialState = {
     definition: "",
     sentence: ""    
   },
-  deck: {},
+  deck: [],
   currentCard: { 
     id: null, 
     word: "",
@@ -27,12 +27,43 @@ const cardsReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.CREATE_USER:{
       console.log('hello from inside the create user reducer');
+      console.log(action.payload);
+      fetch('/api/signup', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(action.payload)
+      })
+        .then(res => res.json())
+        .then(res => {
+          if(res.status === 201){
+            return Object.assign({}, state, {isLogged: true})
+          }else return;
+        })
+        .catch(err => {
+          console.log(err);
+          throw new Error(err);
+        })
+          
+        
       return newState;
     }
+    
     case types.LOGIN_USER:{
       console.log('hello from inside the login user reducer');
-      return state;
-    }
+      fetch('/api/login', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(action.payload)
+      })
+        .then(res => res.json()) 
+        .then(res => {
+          return state;
+        })
+        .catch(err => {
+          console.log(err);
+          throw new Error(err);
+        })
+      }
     case types.ADD_CARD:{
       return state;
     }

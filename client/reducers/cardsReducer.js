@@ -3,64 +3,147 @@ import * as types from '../constants/actionTypes.js';
 
 const initialState = {
   cardOfTheDay: { 
-    id: null,
-    word: "",
-    definition: "",
-    sentence: ""    
+    word: "senioritis",
+    definition: "an affliction of students in their final days of school characterized by a decline in motivation or performance",
+    sentence: "I have senioritis."    
   },
-  deck: [],
+  deck: [
+    {word: "whacked", definition: "completely exahusted", sentence: "I am whacked."},
+    {word: "tuckered", definition: "exhausted; worn out", sentence: "I am tuckered."},
+    {word: "distressed", definition: "suffering from anxiety, sorrow, or pain", sentence: "I am distressed."},
+    {word: "fatigue", definition: "extreme tiredness resulting from mental or physical exertion or illness", sentence: "I have fatigue."},
+    {word: "exasperated", definition: "intensely irritated and frustrated", sentence: "I am exasperated."},
+    {word: "unionize", definition: "become or cause to become members of a labor union", sentence: "I will unionize"},
+    {word: "enervated", definition: "drained of energy or vitality", sentence: "I am enervated."},
+  ],
   currentCard: { 
-    id: null, 
-    word: "",
-    definition: "",
-    sentence: "",
+    word: "senioritis",
+    definition: "an affliction of students in their final days of school characterized by a decline in motivation or performance",
+    sentence: "I have senioritis."  
   },
-  cardsInDeck: 0,
-  isLogged: false,
+  cardsInDeck: 7,
+  isLogged: true,
   front: true,
-  lastId: 100 
+  currentI: null 
 }
 
 const cardsReducer = (state = initialState, action) => {
-  const newState = Object.assign({}, state)
+  // const newState = Object.assign({}, state)
 
   switch (action.type) {
+
     case types.CREATE_USER:{  
       return {
-        ...newState,
-        isLogged: true
+        ...state,
+        isLogged: true,
+        cardOfTheDay: action.payload.wordOfTheDay
       }
     }
     
     case types.LOGIN_USER:{
       console.log('hello from inside the login user reducer');
-      console.log(action.payload)
+      console.log(action)
       if(action.payload.state){
         return{
           ...action.payload.state,
-          isLogged: true
+          isLogged: true,
+          cardOfTheDay: action.payload.cardOfTheDay
         }
       }
       return {
-        ...newState, 
-        isLogged: true
+        ...state, 
+        isLogged: true,
+        cardOfTheDay: action.payload.cardOfTheDay
       }
     }
+
     case types.ADD_CARD:{
-      return state;
+      for(const card of state.deck){
+        if(card.word === state.currentCard.word) return {...state};
+      }
+      const newDeck = [...state.deck];
+      newDeck.push(state.currentCard);
+      const currentI = newDeck.length - 1;
+      const cardsInDeck = newDeck.length;
+      return {
+        ...state,
+        deck: newDeck,
+        currentI,
+        cardsInDeck
+      }
     }
+
     case types.DELETE_CARD:{
-      return state;
+      const deck = [...state.deck];
+      deck.splice(1, state.currentI);
+      return {
+        ...state,
+        deck
+      }
     }
+
     case types.FLIP_CARD:{
-      return state;
+      console.log('hello from inside the flip card reducer');
+      const currentFront = state.front;
+      return {
+        ...state,
+        front: !currentFront
+      }
     }
+
     case types.PREV_CARD:{
-      return state;
+      let currentCard;
+      let currentI;
+      if(state.currentI === null){
+         currentCard = state.deck[0];
+         currentI = 0;
+      }
+      else if(state.currentI > 0){
+         currentCard = state.deck[state.currentI - 1];
+         currentI = state.currentI - 1;
+      }else{
+         currentCard = state.deck[state.deck.length -1];
+         currentI = state.deck.length - 1;
+      }
+      return {
+        ...state,
+        currentCard,
+        currentI
+      }
     }
+
     case types.NEXT_CARD:{
-      return state;
+      let currentCard;
+      let currentI;
+      if(state.currentI === null){
+         currentCard = state.deck[0];
+         currentI = 0;
+      }
+      else if(state.currentI === state.deck.length - 1){
+         currentCard = state.deck[0];
+         currentI = 0;
+      }else{
+         currentCard = state.deck[state.currentI + 1];
+         currentI = state.currentI + 1;
+      }
+      return {
+        ...state,
+        currentCard,
+        currentI
+      }
     }
+
+    case types.CARD_OF_DAY:{
+      return {
+        ...state,
+        cardOfTheDay: {
+          id: null,
+          word: action.payload.word,
+          definition: action.payload.definition
+        }
+      }
+    }
+
     default:{
       return state;
     }

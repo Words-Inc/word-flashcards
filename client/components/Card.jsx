@@ -8,16 +8,17 @@ const Card = props => {
   const {card, isLogged, front} = props;
     
   return (
-    <div className="">
-      {front && 
-      <FrontOfCard 
-        word ={card.word}
+    <div className="card-component">
+      {front && <FrontOfCard 
+        card ={card}
         isLogged = {isLogged}
+        front = {front}
       />}
       {!front && 
       <BackOfCard
         card = {card}
         isLogged = {isLogged}
+        front = {front}
       />}
     </div>
   )

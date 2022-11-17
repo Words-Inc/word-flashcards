@@ -11,17 +11,17 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  createUser : () => dispatch(actions.createUserActionCreator()),
-  loginUser : () => dispatch(actions.loginUserActionCreator())
+  createUser : (word) => dispatch(actions.createUserActionCreator(word)),
+  loginUser : (state) => dispatch(actions.loginUserActionCreator(state))
 })
 
 function SignUpContainer (props) {
 
-  const {word, createUser, loginUser, card, isLogged, front} = props;
-  console.log(props)
+  const {word, createUser, loginUser, card, isLogged, front, wordOfTheDay} = props;
+  // console.log(word);
+  
   function handleClick(e) {
-    console.log(isLogged);
-    // const {createUser, loginUser} = this.props;
+    // console.log('isLogged: ', isLogged);
     
     e.preventDefault();
     //console.log(e.target.id);
@@ -34,46 +34,71 @@ function SignUpContainer (props) {
     //buttonClicked === 'signUp' ? createUser(user) : loginUser(user);
     username.value = '';
     password.value = '';
-    fetch(`/api/${buttonClicked}`, {
+    let newState = {};
+    if(buttonClicked === "signup"){
+    fetch(`/api/signup`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(user)
     })
-    .then(res => res.json()) 
     .then(res => {
-      if(buttonClicked === 'signup') {
-        createUser()
-      }
-      else if(buttonClicked === 'login') {
-        loginUser(res)
-      }
+      if(res.status === 201) createUser(wordOfTheDay);
     })
     .catch(err => {
       console.log(err);
       throw new Error(err);
     })
+
+    }else{
+      fetch(`/api/login`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(user)
+      })
+      .then(res => res.json()) 
+      .then(data => {
+        console.log(data);
+        const cardOfTheDay = {
+          id: null,
+          word: wordOfTheDay.word,
+          definition: wordOfTheDay.definition
+        }
+        newState = {...data, cardOfTheDay};
+        loginUser(newState);
+      })
+      .catch(err => {
+        console.log(err);
+        throw new Error(err);
+      })
+    }
+    
   }
 
   return(
     <div className='signup-container'>
-      <Card 
-        card = {card}
-        isLogged = {isLogged}
-        front = {front}
-      />
+      <div className='card-zone'>
+        <Card 
+          card = {card}
+          isLogged = {isLogged}
+          front = {front}
+        />
+      </div>
+      <div className='input-title'>
+          <h2>Login or Sign Up</h2>
+      </div>
       <div className='signup-zone'>
-        <h2 className='input-title'>Login or Sign Up</h2>
         <div className='input-fields'>
           <input className='username' id="username" type="text" name="username" placeholder="username"></input>
           <input className='password' id="password" type="password" name="password" placeholder="password"></input>
-
-          <button className='signup-button' id ="signup" onClick={handleClick} >Sign Up</button>
-          <button className='login-button' id ="login" onClick={handleClick} >Login</button>
-
+          <div className='button-holder'>
+            <button className='signup-button' id ="signup" onClick={handleClick} >Sign Up</button>
+            <button className='login-button' id ="login" onClick={handleClick} >Login</button>
+          </div>
         </div>
       </div>
     </div>
   )
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpContainer);

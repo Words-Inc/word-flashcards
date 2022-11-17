@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Card from '../components/Card.jsx'
+import * as actions from '../actions/actions.js'
 
 const mapStateToProps = state => ({
-  card: state.currentCard,
-  isLogged : state.isLogged,
-  front: state.front,
-  cardsInDeck : state.cardsInDeck
+  card: state.cards.currentCard,
+  isLogged : state.cards.isLogged,
+  front: state.cards.front,
+  cardsInDeck : state.cards.cardsInDeck
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -16,34 +17,32 @@ const mapDispatchToProps = dispatch => ({
 })
 
 
-const handleClick = (e) => {
-  const buttonClicked = e.target.id;
-  const prevCard = document.querySelector('prevCard');
-  const nextCard = document.querySelector('nextCard');
-  buttonClicked === 'prevCard' ? props.prevCard() : props.nextCard();
-};
 
 
-class WordContainer extends Component {
-  constructor(props) {
-    super(props);
+
+function WordContainer (props) {
+
+  function handleClick(e){
+    const buttonClicked = e.target.id;
+    // const prevCard = document.querySelector('prevCard');
+    // const nextCard = document.querySelector('nextCard');
+    buttonClicked === 'prevCard' ? props.prevCard() : props.nextCard();
   }
 
-  render() {
-    return(
-      <div className="word-container"> 
-        <h1 className='word-title'>Word container</h1>
-        <Card 
-          card = {this.props.card}
-          isLogged = {this.props.isLogged}
-          front = {this.props.front}
-        />
-        <button className='previous-button' id='prevCard' name='prevCard' onClick={() => handleClick(e)}>Previous</button>
-        <button className='next-button' id='nextCard' name='nextCard' onClick={() => handleClick(e)}>Next</button>
-        <span id='totalCardsInDeck'>{this.props.cardsInDeck}</span>
-      </div>
-    );
-  }
+ 
+  return(
+    <div className="word-container"> 
+      <Card 
+        card = {props.card}
+        isLogged = {props.isLogged}
+        front = {props.front}
+      />
+      <button className='previous-button' id='prevCard' name='prevCard' onClick={handleClick}>Previous</button>
+      <button className='next-button' id='nextCard' name='nextCard' onClick={handleClick}>Next</button>
+      <h4>Cards in your deck: <span id='totalCardsInDeck'>{props.cardsInDeck}</span></h4>
+    </div>
+  );
+  
 };
 
 

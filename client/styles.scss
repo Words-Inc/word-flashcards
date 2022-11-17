@@ -5,9 +5,11 @@ $fourth: lighten($tertiary, 10%);
 $blue: #3673E8;
 $lighter-blue: lighten($blue, 30%);
 $even-lighter: lighten($lighter-blue, 10%);
+$lightest-blue: lighten($blue, 50%);
 
 html {
-  font-size: 1.5vw;
+  font-size: medium;
+  text-align: center;
 }
 
 body {
@@ -16,6 +18,74 @@ body {
   background-color: $even-lighter;
 }
 
+h1 {
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+}
+
 button {
-  color:#3f94f4
+  color: $blue;
+  border: 1px $secondary solid;
+  border-radius: 5px;
+  margin: 3px;
+  background-color: $lightest-blue;
+}
+
+.card-zone {
+  display: flex;
+  justify-content: center;
+}
+
+.signup-zone {
+  display: flex;
+  justify-content: center;
+
+  .input-title {
+    display: inline-block;
+    text-align: center;
+  }
+
+  input {
+    border: 1px $secondary solid;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 3px;
+  }
+
+  .button-holder {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .signup-button {
+    background-color: $lighter-blue;
+  }
+
+  .login-button {
+    background-color: $even-lighter;
+  }
+}
+
+.word-container {
+  display: inline-block;
+}
+
+.card-component {
+  width: 250px;
+  height: 250px;
+  border: 2px $secondary solid;
+  padding: 20px;
+  font-size: medium;
+  position: relative;
+  background-color: $fourth;
+  border-radius: 5px;
+}
+
+.savebutton-holder {
+  position: absolute;
+  right: 5px;
+  top: 10px;
 }

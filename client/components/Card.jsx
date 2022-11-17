@@ -9,15 +9,16 @@ const Card = props => {
     
   return (
     <div className="card-component">
-      {front && 
-      <FrontOfCard 
+      {front && <FrontOfCard 
         card ={card}
         isLogged = {isLogged}
+        front = {front}
       />}
       {!front && 
       <BackOfCard
         card = {card}
         isLogged = {isLogged}
+        front = {front}
       />}
     </div>
   )

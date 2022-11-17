@@ -1,16 +1,19 @@
 import React from "react";
 import SaveButton from "./SaveButton.jsx";
 import { connect } from 'react-redux';
+import * as actions from '../actions/actions.js'
 
 const mapDispatchToProps = dispatch => ({
-  flipCard: (boolean) => dispatch(actions.flipCardActionCreator(boolean))
+  flipCard: () => dispatch(actions.flipCardActionCreator())
 })
 
-const FrontOfCard = props => {
+function FrontOfCard (props) {
+
   const { card, isLogged, front } = props;
+  // console.log('front: ', front)
 
   const handleClick = () => {
-    props.flipCard(!props.front)
+    props.flipCard(!front)
   }
 
   return (

@@ -1,35 +1,30 @@
 import * as types from '../constants/actionTypes.js';
-import { CREATE_USER, LOGIN, ADD_CARD, DELETE_CARD, FLIP_CARD, PREV_CARD, NEXT_CARD } from '../constants/actionTypes.js';
-// import { LOGIN } from '../constants/actionTypes.js';
-// import { ADD_CARD } from '../constants/actionTypes.js';
-// import { DELETE_CARD } from '../constants/actionTypes.js';
-// import { FLIP_CARD } from '../constants/actionTypes.js';
-// import { PREV_CARD } from '../constants/actionTypes.js';
-// import { NEXT_CARD } from '../constants/actionTypes.js';
+import { CREATE_USER, LOGIN, ADD_CARD, DELETE_CARD, FLIP_CARD, PREV_CARD, NEXT_CARD, CARD_OF_DAY } from '../constants/actionTypes.js';
 
-export const createUserActionCreator = user => ({
+
+export const createUserActionCreator = (word) => ({
   type: types.CREATE_USER,
-  payload: user, 
+  payload: word,
 });
 
-export const loginUserActionCreator = user => ({
+export const loginUserActionCreator = data => ({
   type: types.LOGIN_USER,
-  payload: user, 
+  payload: data, 
 });
 
-export const addCardActionCreator = card => ({
+export const addCardActionCreator = () => ({
   type: types.ADD_CARD,
-  payload: card,
+  payload: null,
 });
 
-export const deleteCardActionCreator = card => ({
+export const deleteCardActionCreator = () => ({
   type: types.DELETE_CARD,
-  payload: card,
+  payload: null,
 });
 
-export const flipCardActionCreator = boolean => ({
+export const flipCardActionCreator = () => ({
   type: types.FLIP_CARD,
-  payload: boolean,
+  payload: null,
 });
 
 export const prevCardActionCreator = () => ({
@@ -41,3 +36,8 @@ export const nextCardActionCreator = () => ({
   type: types.NEXT_CARD,
   payload: null,
 });
+
+export const addCardOfTheDayActionCreator = (card) => ({
+  type: types.CARD_OF_DAY,
+  payload: card,
+})
